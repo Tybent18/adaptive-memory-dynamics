@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Adaptive Memory Dynamics"
+type: software
+authors:
+  - family-names: "Tybent18"
+version: 0.1.0
+date-released: 2026-09-15
+license: MIT
+abstract: "A reproducible framework for temporal decay, reinforcement-sensitive retention, and continual-learning experiments."
+

@@ -1,0 +1,24 @@
+name: Experiment proposal
+description: Register a falsifiable Adaptive Memory Dynamics experiment
+title: "[Experiment]: "
+labels: ["experiment"]
+body:
+  - type: textarea
+    attributes:
+      label: Hypothesis
+      description: State the predicted direction and comparison before running the study.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Protocol
+      description: Dataset, mechanisms, seeds, hyperparameters, metrics, and stopping rule.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Claim boundary
+      description: What will this experiment not establish?
+    validations:
+      required: true
+
