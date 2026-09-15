@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from .experiment import run_suite
@@ -22,7 +22,7 @@ def parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = parser().parse_args()
-    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     output = args.output or Path("results/runs") / stamp
     seeds = [7, 42] if args.quick else [int(seed) for seed in args.seeds.split(",")]
     epochs = min(args.epochs, 6) if args.quick else args.epochs

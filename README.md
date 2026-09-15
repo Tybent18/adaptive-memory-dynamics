@@ -6,7 +6,7 @@ Adaptive Memory Dynamics is a reproducible research framework for temporal decay
 
 ![Adaptive Memory Dynamics experiment dashboard](demos/adaptive-memory-demo.gif)
 
-[Methods](docs/METHODS.md) · [Evidence guide](docs/EVIDENCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Baseline results](results/stage_one_baseline/README.md)
+[Methods](docs/METHODS.md) · [Evidence guide](docs/EVIDENCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Baseline results](results/stage_one_baseline/README.md) · [Research library](docs/research/README.md)
 
 ## What is implemented
 
@@ -65,6 +65,16 @@ The checked-in Stage One results use scikit-learn's offline 8×8 handwritten-dig
 
 This boundary is deliberate: the repository separates implemented mechanisms, measured observations, and future claims.
 
+## Research documents
+
+- [Stage One Technical Report](docs/research/stage-one-technical-report.pdf) — frozen five-seed evidence and limitations
+- [Pre-Registered Experimental Protocol](docs/research/experimental-protocol.pdf) — next parameter and mechanism ablation
+- [Tier 1: Capstone Research Concept](docs/research/tier-1-capstone.pdf) — controlled forgetting and adaptive retention
+- [Tier 2: Master's Research Design](docs/research/tier-2-masters.pdf) — continual-learning extensions and ablations
+- [Tier 3: Doctoral Research Agenda](docs/research/tier-3-doctoral-agenda.pdf) — formal, scalable, resource-constrained memory dynamics
+
+Use the [navigable research library](docs/research/README.md) for reading order, evidence status, and claim boundaries.
+
 ## Development
 
 ```bash
@@ -78,4 +88,3 @@ CI tests Python 3.10 and 3.12, runs the unit suite, executes a smoke experiment,
 ## Citation and license
 
 See [CITATION.cff](CITATION.cff). Code is released under the [MIT License](LICENSE).
-

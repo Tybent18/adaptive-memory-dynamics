@@ -7,7 +7,7 @@ import json
 import platform
 import time
 from collections.abc import Callable
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -210,7 +210,7 @@ def run_suite(
     _write_csv(output_dir / "raw_metrics.csv", histories)
     _write_csv(output_dir / "run_summary.csv", summaries)
     manifest = {
-        "created_at": datetime.now(UTC).isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "stage": "Stage One pipeline validation",
         "dataset": "sklearn-digits-8x8",
         "seeds": seeds,

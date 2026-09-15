@@ -6,7 +6,7 @@ import queue
 import subprocess
 import sys
 import threading
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from tkinter import (
     BOTH,
@@ -175,7 +175,7 @@ class MemoryLab(Tk):
         ):
             return
         self.stop_requested = False
-        stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         self.latest_output = Path("results/runs") / stamp
         self.run_settings = (self.seeds.get(), self.epochs.get(), self.continual_epochs.get())
         threading.Thread(target=self._run, name="experiment", daemon=True).start()
