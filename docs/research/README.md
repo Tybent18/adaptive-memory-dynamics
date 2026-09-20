@@ -1,6 +1,6 @@
 # Adaptive Memory Dynamics research library
 
-[← Project home](../../README.md) · [Stage One results](../../results/stage_one_baseline/README.md) · [Methods](../METHODS.md) · [Roadmap](../ROADMAP.md)
+[← Project home](../../README.md) · [Stage One results](../../data/stage_one_baseline/runs/2026-09-15_digits-8x8-v1/) · [Methods](../METHODS.md) · [Roadmap](../ROADMAP.md)
 
 This library organizes the current evidence report, the next preregistered experiment, and the three-tier research progression. It deliberately separates what Stage One measured from what later studies propose.
 
@@ -24,4 +24,3 @@ This library organizes the current evidence report, the next preregistered exper
 Stage One establishes a reproducible experimental pipeline and measured behavior on `sklearn-digits-8x8`. Reinforced retention approximately matches the persistent control on ordinary accuracy and Task B adaptation; passive decay reduces accuracy; neither forgetting mechanism improves Task A retention in the frozen configuration.
 
 These results do not establish a universal benefit from forgetting, a biologically faithful model of memory, or performance on MNIST, Fashion-MNIST, CIFAR-10, or real-world continual-learning systems. The doctoral formulation is a falsifiable research scaffold—not a discovered law of memory.
-

@@ -6,7 +6,7 @@ Adaptive Memory Dynamics is a reproducible research framework for temporal decay
 
 ![Adaptive Memory Dynamics experiment dashboard](demos/adaptive-memory-demo.gif)
 
-[Methods](docs/METHODS.md) · [Evidence guide](docs/EVIDENCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Baseline results](results/stage_one_baseline/README.md) · [Research library](docs/research/README.md)
+[Methods](docs/METHODS.md) · [Evidence guide](docs/EVIDENCE.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Data catalog](data/README.md) · [Baseline results](data/stage_one_baseline/runs/2026-09-15_digits-8x8-v1/) · [Research library](docs/research/README.md)
 
 ## What is implemented
 
