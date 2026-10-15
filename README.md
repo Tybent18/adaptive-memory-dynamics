@@ -65,6 +65,17 @@ The checked-in Stage One results use scikit-learn's offline 8×8 handwritten-dig
 
 This boundary is deliberate: the repository separates implemented mechanisms, measured observations, and future claims.
 
+## Stage Two — Domain-Incremental Retention Research (development branch)
+
+The next experiment measures whether use-dependent forgetting can improve retention and adaptation when **all ten digit labels stay the same**, but the input representation changes (90° rotations or fixed pixel permutations). It runs **seven paired mechanism/rate conditions** on identical splits, weight initializations and batch schedules, with per-seed metrics, descriptive bootstrap intervals, CSV, reproducibility manifest and plots.
+
+```bash
+python -m adaptive_memory.stage_two --pilot --output results/stage-two-pilot
+python -m adaptive_memory.stage_two --output results/stage-two
+```
+
+See the [Stage Two experimental protocol](docs/STAGE_TWO_DOMAIN_SHIFT.md). **This remains exploratory on scikit-learn 8×8 digits**—no claim of MNIST/CIFAR validation, improved continual learning or positive findings has been established. The September Stage One result, in which the persistent baseline retained Task A better than both decay mechanisms, remains unchanged.
+
 ## Research documents
 
 - [Stage One Technical Report](docs/research/stage-one-technical-report.pdf) — frozen five-seed evidence and limitations
