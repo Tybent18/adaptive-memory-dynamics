@@ -1,0 +1,71 @@
+name: Stage Two Full Paired Research
+
+on:
+  pull_request:
+    paths:
+      - 'adaptive_memory/stage_two.py'
+      - 'adaptive_memory/stage_two_report.py'
+      - '.github/workflows/stage-two-full.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  full-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install and validate
+        run: |
+          python -m pip install -e ".[dev]"
+          ruff check .
+          pytest -q
+      - name: Run all paired five-seed conditions
+        run: |
+          python -m adaptive_memory.stage_two --seeds 7,21,42,84,101 --epochs 8 --output data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1
+      - name: Generate report from actual data
+        run: |
+          python -m adaptive_memory.stage_two_report --evidence data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1 --report docs/STAGE_TWO_RESULTS.md
+      - name: Verify outputs and counts
+        run: |
+          python - <<'PY'
+          import csv, json, pathlib
+          folder=pathlib.Path("data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1")
+          rows=list(csv.DictReader((folder/"run_summary.csv").open()))
+          effects=list(csv.DictReader((folder/"paired_effects.csv").open()))
+          manifest=json.loads((folder/"manifest.json").read_text())
+          assert len(rows)==70, len(rows)
+          assert len(effects)==60, len(effects)
+          assert manifest["trials"]==70
+          assert (folder/"charts/rotate90_paired_accuracy.png").stat().st_size>5000
+          assert (folder/"charts/permuted_pixels_paired_accuracy.png").stat().st_size>5000
+          assert (pathlib.Path("docs/STAGE_TWO_RESULTS.md")).stat().st_size>2000
+          print("Validated:",len(rows),"paired runs,",len(effects),"effect records")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adaptive-memory-stage-two-five-seed-evidence
+          path: |
+            data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1/
+            docs/STAGE_TWO_RESULTS.md
+      - name: Commit audited results to research branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1 docs/STAGE_TWO_RESULTS.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: freeze first exploratory paired Stage Two run [skip ci]"
+          DATA_COMMIT="$(git rev-parse HEAD)"
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B "${{ github.head_ref }}" FETCH_HEAD
+          git cherry-pick -X theirs "$DATA_COMMIT"
+          git push origin HEAD:${{ github.head_ref }}
