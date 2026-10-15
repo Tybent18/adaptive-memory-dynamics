@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 """Create a versioned PDF from the actual Stage Two Markdown report and figures."""
 from __future__ import annotations
 
