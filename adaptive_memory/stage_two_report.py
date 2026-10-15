@@ -7,7 +7,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-from collections import defaultdict
 from pathlib import Path
 from statistics import mean, stdev
 
@@ -20,7 +19,9 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
 def _format(values: list[float]) -> str:
     if not values:
         return "not measured"
-    return f"{mean(values):.3f} +/- {stdev(values):.3f}" if len(values) > 1 else f"{values[0]:.3f} (n=1)"
+    if len(values) > 1:
+        return f"{mean(values):.3f} +/- {stdev(values):.3f}"
+    return f"{values[0]:.3f} (n=1)"
 
 
 def render(evidence: Path, destination: Path) -> str:
