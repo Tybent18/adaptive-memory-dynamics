@@ -1,8 +1,8 @@
 {
   "experiment": "stage_two_domain_shift_digits_8x8",
   "status": "exploratory_offline_proxy_not_confirmatory",
-  "generated_at_utc": "2026-10-15T07:42:59.797477+00:00",
-  "source_commit": "09fad5fe0b4d90291ef74cc28c32306210f119e2",
+  "generated_at_utc": "2026-10-16T00:33:03.069391+00:00",
+  "source_commit": "339732702b19a0dc0ff41d716dc3a9c20301cb61",
   "dataset": "scikit-learn load_digits, 8x8 handwritten digits; no MNIST",
   "dataset_sha256_by_domain_seed": {
     "rotate90:7": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
