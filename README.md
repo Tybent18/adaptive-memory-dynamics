@@ -65,6 +65,46 @@ The checked-in Stage One results use scikit-learn's offline 8×8 handwritten-dig
 
 This boundary is deliberate: the repository separates implemented mechanisms, measured observations, and future claims.
 
+## Stage Two — Domain-Incremental Retention Research (five-seed exploratory results)
+
+The completed first Stage Two experiment measures whether use-dependent forgetting can improve retention and adaptation when **all ten digit labels stay the same**, but the input representation changes (90° rotations or fixed pixel permutations). It runs **seven paired mechanism/rate conditions** on identical splits, weight initializations and batch schedules, with per-seed metrics, descriptive bootstrap intervals, CSV, reproducibility manifest and plots.
+
+```bash
+python -m adaptive_memory.stage_two --pilot --output results/stage-two-pilot
+python -m adaptive_memory.stage_two --output results/stage-two
+```
+
+**[Read the full Stage Two experimental results](docs/STAGE_TWO_RESULTS.md)** · [Protocol](docs/STAGE_TWO_DOMAIN_SHIFT.md) · [Versioned experimental dataset](data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1/). **This remains exploratory on scikit-learn 8×8 digits**—no claim of MNIST/CIFAR validation, improved continual learning or positive findings has been established. The September Stage One result, in which the persistent baseline retained Task A better than both decay mechanisms, remains unchanged.
+
+### Stage Two results at a glance (five paired seeds)
+
+Across the tested 90-degree rotation and pixel-permutation shifts, the **persistent baseline achieved the highest average Task A retention and Task B accuracy**. Reinforced use-dependent decay generally outperformed comparable passive decay conditions but **did not outperform persistence**. These are exploratory 8×8 scikit-learn digit results, not a general continual-learning benchmark.
+
+| Domain B | Condition | Task A after B | Task B after A |
+|---|---|---:|---:|
+| 90° rotation | Persistent baseline | **58.7%** | **87.9%** |
+| 90° rotation | Reinforced decay (rate 0.002, strength 8) | 46.3% | 85.2% |
+| Pixel permutation | Persistent baseline | **60.7%** | **88.5%** |
+| Pixel permutation | Reinforced decay (rate 0.002, strength 8) | 59.1% | 86.6% |
+
+![Five-seed rotate-90 domain-shift evaluation](data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1/charts/rotate90_paired_accuracy.png)
+
+![Five-seed pixel-permutation domain-shift evaluation](data/stage_two_exploratory/runs/2026-10-15_domain-shift-paired-v1/charts/permuted_pixels_paired_accuracy.png)
+
+The [complete report](docs/STAGE_TWO_RESULTS.md) includes all seven conditions, variation across seeds and descriptive paired bootstrap intervals. The [data catalog](data/README.md) links raw CSVs and the SHA-256 manifest. **We should not claim statistically confirmed superiority or report a positive outcome without a stronger independent study.**
+
+## Stage Two follow-up — Selective consolidation (new seeds, October 2026)
+
+The first Stage Two experiment showed that *decaying* weights during training usually reduced old- and new-task accuracy. We therefore tested a different method: **complete Task A training first, then constrain important weights while learning Task B**, using uniform, activation-based, gradient-proxy, and shuffled-importance controls.
+
+Across five new paired seeds, gradient-proxy anchoring at penalty 0.1 preserved more Task A accuracy while sacrificing less Task B performance than the other tested anchoring strategies. For the 90-degree-rotation scenario it achieved **66.5% Task A / 79.7% Task B**; for pixel permutation **73.5% / 82.1%**, compared with persistence **55.7% / 87.2%** and **64.9% / 87.8%**, respectively. **It did not outperform persistence on Task B**, and the outcome is exploratory.
+
+![Rotation selective-consolidation ablation](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/charts/rotate90_comparison.png)
+
+![Permutation selective-consolidation ablation](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/charts/permuted_pixels_comparison.png)
+
+**[Full experimental findings](docs/SELECTIVE_CONSOLIDATION_RESULTS.md)** · [Save the PDF report](docs/SELECTIVE_CONSOLIDATION_RESULTS.pdf) · [New archived evidence](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/) · [Reproducibility manifest](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/manifest.json)
+
 ## Research documents
 
 - [Stage One Technical Report](docs/research/stage-one-technical-report.pdf) — frozen five-seed evidence and limitations

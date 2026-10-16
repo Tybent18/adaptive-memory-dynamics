@@ -1,0 +1,41 @@
+name: Stage Two Report PDF
+
+on:
+  pull_request:
+    paths:
+      - 'adaptive_memory/stage_two_pdf.py'
+      - '.github/workflows/stage-two-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF dependencies
+        run: pip install reportlab pillow
+      - name: Export actual evidence-based report
+        run: python adaptive_memory/stage_two_pdf.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adaptive-memory-stage-two-report-pdf
+          path: docs/STAGE_TWO_RESULTS.pdf
+      - name: Commit PDF to research branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/STAGE_TWO_RESULTS.pdf
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "docs: export evidence-grounded research PDF [skip ci]"
+          PDF_COMMIT="$(git rev-parse HEAD)"
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B "${{ github.head_ref }}" FETCH_HEAD
+          git cherry-pick -X theirs "$PDF_COMMIT"
+          git push origin HEAD:${{ github.head_ref }}

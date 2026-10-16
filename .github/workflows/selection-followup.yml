@@ -1,0 +1,59 @@
+name: Selective Consolidation Follow-Up
+on:
+  pull_request:
+    paths:
+      - 'adaptive_memory/selection_followup.py'
+      - 'tests/test_selection_followup.py'
+      - '.github/workflows/selection-followup.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  paired-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Validate
+        run: |
+          ruff check .
+          pytest -q
+      - name: Held-out 5-seed, two-domain consolidation study
+        run: python -m adaptive_memory.selection_followup --output data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1
+      - name: Verify data
+        run: |
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          p=Path("data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1")
+          m=json.loads((p/"manifest.json").read_text())
+          assert m["trials"]==80
+          assert len(list(csv.DictReader((p/"run_summary.csv").open())))==80
+          assert (p/"charts/rotate90_comparison.png").stat().st_size>10000
+          assert (p/"charts/permuted_pixels_comparison.png").stat().st_size>10000
+          print("Confirmed 80 independently evaluated condition runs")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: selective-consolidation-followup-evidence
+          path: data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/
+      - name: Commit run to research branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: archive held-out selective consolidation evaluation [skip ci]"
+          DATA_COMMIT="$(git rev-parse HEAD)"
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B "${{ github.head_ref }}" FETCH_HEAD
+          git cherry-pick -X theirs "$DATA_COMMIT"
+          git push origin HEAD:${{ github.head_ref }}

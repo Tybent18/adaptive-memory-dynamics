@@ -26,6 +26,12 @@ jobs:
       - run: pytest -q
       - name: Smoke-test evidence pipeline
         run: python -m adaptive_memory.cli --quick --output results/ci-smoke
+      - name: Stage Two domain shift pilot
+        run: python -m adaptive_memory.stage_two --pilot --output results/stage-two-pilot
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stage-two-pilot-py${{ matrix.python-version }}
+          path: results/stage-two-pilot/
       - uses: actions/upload-artifact@v4
         with:
           name: evidence-smoke-py${{ matrix.python-version }}
