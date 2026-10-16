@@ -1,0 +1,42 @@
+name: Selective Follow-Up Report PDF
+
+on:
+  pull_request:
+    paths:
+      - 'adaptive_memory/selection_followup_pdf.py'
+      - 'docs/SELECTIVE_CONSOLIDATION_RESULTS.md'
+      - '.github/workflows/selection-followup-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF dependencies
+        run: pip install reportlab pillow
+      - name: Build PDF from measured findings and figures
+        run: python adaptive_memory/selection_followup_pdf.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: selective-consolidation-report-pdf
+          path: docs/SELECTIVE_CONSOLIDATION_RESULTS.pdf
+      - name: Commit PDF to research branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/SELECTIVE_CONSOLIDATION_RESULTS.pdf
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "docs: render selective consolidation PDF [skip ci]"
+          PDF_COMMIT="$(git rev-parse HEAD)"
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B "${{ github.head_ref }}" FETCH_HEAD
+          git cherry-pick -X theirs "$PDF_COMMIT"
+          git push origin HEAD:${{ github.head_ref }}
