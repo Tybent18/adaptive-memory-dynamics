@@ -2,7 +2,11 @@ import numpy as np
 
 from adaptive_memory.model import AdaptiveMLP
 from adaptive_memory.selection_followup import (
-    TREATMENTS, apply_anchor, collect, evaluate, importance_masks,
+    TREATMENTS,
+    apply_anchor,
+    collect,
+    evaluate,
+    importance_masks,
 )
 
 
