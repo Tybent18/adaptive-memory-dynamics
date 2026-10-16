@@ -1,8 +1,8 @@
 {
   "experiment": "stage_two_domain_shift_digits_8x8",
   "status": "exploratory_offline_proxy_not_confirmatory",
-  "generated_at_utc": "2026-10-16T00:33:03.069391+00:00",
-  "source_commit": "339732702b19a0dc0ff41d716dc3a9c20301cb61",
+  "generated_at_utc": "2026-10-16T00:34:13.384461+00:00",
+  "source_commit": "977c0a7c1d1fc7baca6f4445dbfaded7c856db83",
   "dataset": "scikit-learn load_digits, 8x8 handwritten digits; no MNIST",
   "dataset_sha256_by_domain_seed": {
     "rotate90:7": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
@@ -116,7 +116,7 @@
     "No findings of improved forgetting without reviewing the actual results"
   ],
   "checksums_sha256": {
-    "epoch_metrics.csv": "c69d933ab5f63c12dfb319597dba348152cd3c559da602f8a3e257f34c511553",
+    "epoch_metrics.csv": "1d3a1ab3ef2662133afa67d29004e88597801bb7b6ef04e98e373d61ce3b0cf2",
     "run_summary.csv": "53f4a9a1e2a45b346d5b196d839904060af5a7025ec928a03b24afde317680aa",
     "paired_effects.csv": "cb54465df89d4917a1126a89916a244901e900be3e2c98f9c55bef32eaeffb46"
   }
