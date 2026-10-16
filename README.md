@@ -93,6 +93,18 @@ Across the tested 90-degree rotation and pixel-permutation shifts, the **persist
 
 The [complete report](docs/STAGE_TWO_RESULTS.md) includes all seven conditions, variation across seeds and descriptive paired bootstrap intervals. The [data catalog](data/README.md) links raw CSVs and the SHA-256 manifest. **We should not claim statistically confirmed superiority or report a positive outcome without a stronger independent study.**
 
+## Stage Two follow-up — Selective consolidation (new seeds, October 2026)
+
+The first Stage Two experiment showed that *decaying* weights during training usually reduced old- and new-task accuracy. We therefore tested a different method: **complete Task A training first, then constrain important weights while learning Task B**, using uniform, activation-based, gradient-proxy, and shuffled-importance controls.
+
+Across five new paired seeds, gradient-proxy anchoring at penalty 0.1 preserved more Task A accuracy while sacrificing less Task B performance than the other tested anchoring strategies. For the 90-degree-rotation scenario it achieved **66.5% Task A / 79.7% Task B**; for pixel permutation **73.5% / 82.1%**, compared with persistence **55.7% / 87.2%** and **64.9% / 87.8%**, respectively. **It did not outperform persistence on Task B**, and the outcome is exploratory.
+
+![Rotation selective-consolidation ablation](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/charts/rotate90_comparison.png)
+
+![Permutation selective-consolidation ablation](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/charts/permuted_pixels_comparison.png)
+
+**[Full experimental findings](docs/SELECTIVE_CONSOLIDATION_RESULTS.md)** · [New archived evidence](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/) · [Reproducibility manifest](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/manifest.json)
+
 ## Research documents
 
 - [Stage One Technical Report](docs/research/stage-one-technical-report.pdf) — frozen five-seed evidence and limitations
