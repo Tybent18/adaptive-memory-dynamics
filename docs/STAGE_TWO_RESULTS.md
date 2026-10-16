@@ -12,7 +12,7 @@ This report is generated directly from the Stage Two CSV and manifest. Historica
 - Domains: rotate90, permuted_pixels.
 - Training: 8 epochs for each of A and B; 32 hidden neurons; SGD learning rate 0.08.
 - Complete condition runs: 70; epoch metric rows: 1120.
-- Source commit: `6ef2c501f111763c8b5a33c8fdd8d62b46072bad`.
+- Source commit: `dc0f2dc4a5f90e73eda08c2969dbafca6155f273`.
 - Input data, labels, splits, initialization seeds, and minibatch order are matched within each domain. Transformed test samples are held out from training, but the seeds/rates are exploratory rather than a preregistered independent confirmatory test.
 
 ## Held-out accuracy and forgetting, by configuration
