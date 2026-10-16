@@ -36,7 +36,15 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "docs: render selective consolidation PDF [skip ci]"
           PDF_COMMIT="$(git rev-parse HEAD)"
-          git fetch origin "${{ github.head_ref }}"
-          git checkout -B "${{ github.head_ref }}" FETCH_HEAD
-          git cherry-pick -X theirs "$PDF_COMMIT"
-          git push origin HEAD:${{ github.head_ref }}
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${{ github.head_ref }}"
+            git checkout -B "${{ github.head_ref }}" FETCH_HEAD
+            git cherry-pick -X theirs "$PDF_COMMIT"
+            if git push origin HEAD:${{ github.head_ref }}; then
+              exit 0
+            fi
+            git reset --hard FETCH_HEAD
+            sleep 2
+          done
+          echo "Could not publish PDF after branch moved repeatedly" >&2
+          exit 1
