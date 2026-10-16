@@ -103,7 +103,7 @@ Across five new paired seeds, gradient-proxy anchoring at penalty 0.1 preserved 
 
 ![Permutation selective-consolidation ablation](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/charts/permuted_pixels_comparison.png)
 
-**[Full experimental findings](docs/SELECTIVE_CONSOLIDATION_RESULTS.md)** · [New archived evidence](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/) · [Reproducibility manifest](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/manifest.json)
+**[Full experimental findings](docs/SELECTIVE_CONSOLIDATION_RESULTS.md)** · [Save the PDF report](docs/SELECTIVE_CONSOLIDATION_RESULTS.pdf) · [New archived evidence](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/) · [Reproducibility manifest](data/stage_two_exploratory/runs/2026-10-15_selective-consolidation-v1/manifest.json)
 
 ## Research documents
 
