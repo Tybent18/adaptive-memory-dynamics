@@ -1,8 +1,8 @@
 {
   "experiment": "stage_two_selective_consolidation_followup",
   "status": "exploratory_unadjusted_not_confirmatory",
-  "generated_utc": "2026-10-16T00:36:38.085420+00:00",
-  "source_commit": "c68fa6a2a91cf76a0715c50451458c30060c2740",
+  "generated_utc": "2026-10-16T00:37:07.488059+00:00",
+  "source_commit": "af7ba39c88d56940bff4f975dcef94d85d71d8ca",
   "dataset": "offline scikit-learn 8x8 digits; all classes in both tasks",
   "seeds": [
     1109,
