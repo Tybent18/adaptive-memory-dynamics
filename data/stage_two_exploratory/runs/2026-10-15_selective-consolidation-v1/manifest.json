@@ -1,0 +1,88 @@
+{
+  "experiment": "stage_two_selective_consolidation_followup",
+  "status": "exploratory_unadjusted_not_confirmatory",
+  "generated_utc": "2026-10-16T00:34:24.333505+00:00",
+  "source_commit": "977c0a7c1d1fc7baca6f4445dbfaded7c856db83",
+  "dataset": "offline scikit-learn 8x8 digits; all classes in both tasks",
+  "seeds": [
+    1109,
+    1201,
+    1301,
+    1409,
+    1501
+  ],
+  "domains": [
+    "rotate90",
+    "permuted_pixels"
+  ],
+  "epochs": 8,
+  "treatments": [
+    {
+      "name": "persistent",
+      "importance": "none",
+      "penalty": 0.0
+    },
+    {
+      "name": "uniform_0p1",
+      "importance": "uniform",
+      "penalty": 0.1
+    },
+    {
+      "name": "uniform_0p5",
+      "importance": "uniform",
+      "penalty": 0.5
+    },
+    {
+      "name": "activity_0p1",
+      "importance": "activity",
+      "penalty": 0.1
+    },
+    {
+      "name": "activity_0p5",
+      "importance": "activity",
+      "penalty": 0.5
+    },
+    {
+      "name": "gradient_0p1",
+      "importance": "gradient",
+      "penalty": 0.1
+    },
+    {
+      "name": "gradient_0p5",
+      "importance": "gradient",
+      "penalty": 0.5
+    },
+    {
+      "name": "shuffled_activity_0p5",
+      "importance": "shuffled_activity",
+      "penalty": 0.5
+    }
+  ],
+  "evaluation": "All methods share PRETRAINED Task A weights, train/test splits and Task B minibatch orders per seed/domain. Task A importance computed only from train samples; no data replay.",
+  "interpretation": "Quadratic anchoring applied after each SGD update in B. Activity pathway masks, minibatch squared-gradient proxy (NOT empirical Fisher), and shuffled-activity control.",
+  "trials": 80,
+  "epoch_records": 1280,
+  "metrics": [
+    "task_a_after_b",
+    "task_b_after_b",
+    "mean_final_accuracy"
+  ],
+  "statistics": "paired seed-level descriptive bootstrap, unadjusted across many treatments/domains/metrics",
+  "versions": {
+    "python": "3.12.15",
+    "numpy": "2.5.4",
+    "sklearn": "1.9.1"
+  },
+  "limitations": [
+    "Not a broad continual learning benchmark or a mechanistic proof",
+    "Only 8x8 digit transformations; 5 exploratory evaluation seeds",
+    "No rehearsal, calibrated EWC, or capacity-matched random data replay",
+    "Post-SGD regularization approximation, not an exactly integrated loss",
+    "Multiple comparisons unadjusted and tuning must use new seeds"
+  ],
+  "sha256": {
+    "epoch_metrics.csv": "312550a316a5492c7709903deac40867a91606e70b5a086af5ec49dbfb7aa462",
+    "run_summary.csv": "f1d8679a4c37e3747911aaddfbe9660cb4141e83fdc43807bda6a87a0e99a80c",
+    "paired_effects.csv": "4f9680619b3e534702e37ddd1d29bb10d95eec4175c12efc0b839989f07adab6"
+  }
+}
